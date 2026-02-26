@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USSGB - Université des Sciences Sociales et de Gestion de Bamako</title>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1e3a2e;
+            --secondary: #c9a227;
+            --accent: #8b4513;
+            --light: #f5f1e8;
+            --dark: #0f1f1a;
+            --text: #2c3e50;
+            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            background: var(--light);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Crimson Text', serif;
+            font-weight: 700;
+        }
+
+        /* Loader */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader-content {
+            text-align: center;
+            color: white;
+        }
+
+        .loader-icon {
+            font-size: 3rem;
+            animation: rotate 2s linear infinite;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(30, 58, 46, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 0.5rem 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .logo-text {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.2rem;
+            line-height: 1.2;
+        }
+
+        .logo-text span {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            display: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 0;
+            height: 100vh;
+            background: linear-gradient(rgba(30, 58, 46, 0.8), rgba(15, 31, 26, 0.9)), 
+                        url('https://images.unsplash.com/photo-1562774053-701939374585?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a227' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 2rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero h1 span {
+            color: var(--secondary);
+            display: block;
+            font-size: 2rem;
+            margin-top: 0.5rem;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(201, 162, 39, 0.3);
+        }
+
+        .btn-outline {
+            border-color: white;
+            color: white;
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            color: var(--secondary);
+            font-size: 2rem;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* Section Styles */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+
+        .section-header p {
+            color: #666;
+            max-width: 600px;
+            margin: 1.5rem auto 0;
+            font-size: 1.1rem;
+        }
+
+        /* About Section */
+        .about {
+            background: white;
+            position: relative;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s;
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .about-stats {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            background: var(--secondary);
+            padding: 1.5rem;
+            border-radius: 15px;
+            color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .about-stats .number {
+            font-size: 2rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        .about-content h3 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .about-content p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .features-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .features-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .features-list i {
+            color: var(--secondary);
+        }
+
+        /* Faculties Section */
+        .faculties {
+            background: var(--light);
+        }
+
+        .faculties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .faculty-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .faculty-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--secondary);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .faculty-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .faculty-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .faculty-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: var(--primary);
+            transition: all 0.3s;
+        }
+
+        .faculty-card:hover .faculty-icon {
+            background: var(--primary);
+            color: var(--secondary);
+            transform: rotateY(360deg);
+        }
+
+        .faculty-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .faculty-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .faculty-link {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s;
+        }
+
+        .faculty-link:hover {
+            gap: 1rem;
+        }
+
+        /* Programs Section */
+        .programs {
+            background: white;
+        }
+
+        .programs-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 0.8rem 2rem;
+            border: 2px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .programs-content {
+            display: none;
+        }
+
+        .programs-content.active {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .program-item {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid var(--secondary);
+            transition: all 0.3s;
+        }
+
+        .program-item:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateX(10px);
+        }
+
+        .program-item h4 {
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .program-item p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Admissions Section */
+        .admissions {
+            background: var(--gradient);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .admissions::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: rgba(201, 162, 39, 0.1);
+            border-radius: 50%;
+        }
+
+        .admissions .section-header h2 {
+            color: white;
+        }
+
+        .admissions .section-header h2::after {
+            background: var(--secondary);
+        }
+
+        .admissions .section-header p {
+            color: rgba(255,255,255,0.9);
+        }
+
+        .admissions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .admission-step {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s;
+        }
+
+        .admission-step:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-5px);
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--secondary);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+        }
+
+        .admission-step h3 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .admission-dates {
+            background: rgba(201, 162, 39, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* News Section */
+        .news {
+            background: var(--light);
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .news-image {
+            height: 200px;
+            background: var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .news-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .news-card:hover .news-image img {
+            transform: scale(1.1);
+        }
+
+        .news-date {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--secondary);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .news-content {
+            padding: 1.5rem;
+        }
+
+        .news-content h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .news-content p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: white;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info h3 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-details {
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item i {
+            color: var(--secondary);
+            font-size: 1.2rem;
+            margin-top: 0.3rem;
+        }
+
+        .contact-item div strong {
+            display: block;
+            color: var(--primary);
+            margin-bottom: 0.2rem;
+        }
+
+        .contact-item div {
+            color: #666;
+        }
+
+        .contact-form {
+            background: var(--light);
+            padding: 2.5rem;
+            border-radius: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 2rem 1rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h4 {
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .footer-section p, .footer-section a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            line-height: 1.8;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--secondary);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--secondary);
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero h1 span {
+                font-size: 1.5rem;
+            }
+
+            .about-grid,
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image {
+                order: -1;
+            }
+
+            .features-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            section {
+                padding: 3rem 1rem;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Animations on scroll */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <div class="loader-icon">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h2>USSGB</h2>
+            <p>Chargement...</p>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">USSGB</div>
+                <div class="logo-text">
+                    Université des Sciences<br>
+                    <span>Sociales et de Gestion de Bamako</span>
+                </div>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#apropos">À propos</a></li>
+                <li><a href="#facultes">Facultés</a></li>
+                <li><a href="#admissions">Admissions</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="accueil">
+        <div class="hero-content">
+            <h1>
+                Excellence Académique<br>
+                <span>à la Colline du Savoir</span>
+            </h1>
+            <p>Formons les leaders de demain en sciences sociales, économie et gestion. Une université publique d'excellence au cœur de Bamako depuis 2011.</p>
+            <div class="hero-buttons">
+                <a href="#admissions" class="btn btn-primary">
+                    <i class="fas fa-user-graduate"></i>
+                    S'inscrire
+                </a>
+                <a href="#facultes" class="btn btn-outline">
+                    <i class="fas fa-book-open"></i>
+                    Nos Programmes
+                </a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="apropos">
+        <div class="section-header fade-in">
+            <h2>Notre Université</h2>
+            <p>L'USSGB est un établissement public à caractère scientifique, technologique et culturel créé par l'Ordonnance N°2011-021/PRM du 28 septembre 2011.</p>
+        </div>
+        
+        <div class="about-grid">
+            <div class="about-content fade-in">
+                <h3>Former les cadres compétents et compétitifs de l'Afrique</h3>
+                <p>L'Université des Sciences Sociales et de Gestion de Bamako (USSGB) a pour mission de contribuer à la mise en œuvre de la politique nationale en matière d'enseignement supérieur et de recherche scientifique.</p>
+                <p>Nous formons des cadres maliens et africains capables de relever les principaux défis qui se posent à la société et à la région, avec une forte spécialisation en sciences sociales et gestion.</p>
+                
+                <ul class="features-list">
+                    <li><i class="fas fa-check-circle"></i> Faculté d'Histoire et de Géographie</li>
+                    <li><i class="fas fa-check-circle"></i> Sciences Économiques et Gestion</li>
+                    <li><i class="fas fa-check-circle"></i> Recherche scientifique de pointe</li>
+                    <li><i class="fas fa-check-circle"></i> Partenariats internationaux</li>
+                </ul>
+            </div>
+            
+            <div class="about-image fade-in">
+                <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Campus USSGB">
+                <div class="about-stats">
+                    <span class="number">13+</span>
+                    <span>Années d'excellence</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Faculties Section -->
+    <section class="faculties" id="facultes">
+        <div class="section-header fade-in">
+            <h2>Nos Facultés & Instituts</h2>
+            <p>Découvrez nos quatre piliers académiques offrant des formations de Licence au Doctorat</p>
+        </div>
+        
+        <div class="faculties-grid">
+            <div class="faculty-card fade-in">
+                <div class="faculty-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>FSEG</h3>
+                <p>Faculté des Sciences Économiques et de Gestion. Programmes en Économie, Management, Gestion des Ressources Humaines et Finance.</p>
+                <a href="#" class="faculty-link">En savoir plus <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="faculty-card fade-in">
+                <div class="faculty-icon">
+                    <i class="fas fa-globe-africa"></i>
+                </div>
+                <h3>FHG</h3>
+                <p>Faculté d'Histoire et de Géographie. Excellence en archéologie, patrimoine, géographie et aménagement du territoire.</p>
+                <a href="#" class="faculty-link">En savoir plus <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="faculty-card fade-in">
+                <div class="faculty-icon">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <h3>IUG</h3>
+                <p>Institut Universitaire de Gestion. Formation professionnelle en management, comptabilité et sciences de gestion avancées.</p>
+                <a href="#" class="faculty-link">En savoir plus <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="faculty-card fade-in">
+                <div class="faculty-icon">
+                    <i class="fas fa-city"></i>
+                </div>
+                <h3>IUDT</h3>
+                <p>Institut Universitaire de Développement Territorial. Spécialisation en urbanisme, développement local et gestion des collectivités.</p>
+                <a href="#" class="faculty-link">En savoir plus <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section class="programs">
+        <div class="section-header fade-in">
+            <h2>Nos Programmes</h2>
+            <p>Des formations adaptées aux besoins du marché du travail malien et africain</p>
+        </div>
+        
+        <div class="programs-tabs fade-in">
+            <button class="tab-btn active" onclick="showTab('licence')">Licence</button>
+            <button class="tab-btn" onclick="showTab('master')">Master</button>
+            <button class="tab-btn" onclick="showTab('doctorat')">Doctorat</button>
+        </div>
+        
+        <div id="licence" class="programs-content active">
+            <div class="program-item">
+                <h4>Licence en Économie</h4>
+                <p>Analyse économique, politiques publiques et développement</p>
+            </div>
+            <div class="program-item">
+                <h4>Licence en Gestion</h4>
+                <p>Management, comptabilité et contrôle de gestion</p>
+            </div>
+            <div class="program-item">
+                <h4>Licence Histoire-Géographie</h4>
+                <p>Sciences historiques et géographiques</p>
+            </div>
+            <div class="program-item">
+                <h4>Licence professionnelle</h4>
+                <p>Formations courtes orientées vers l'emploi</p>
+            </div>
+        </div>
+        
+        <div id="master" class="programs-content">
+            <div class="program-item">
+                <h4>Master Management des Organisations</h4>
+                <p>Spécialités : Audit, Contrôle de Gestion, Sciences de Gestion</p>
+            </div>
+            <div class="program-item">
+                <h4>Master Économie Appliquée</h4>
+                <p>Spécialité : Économie du Développement</p>
+            </div>
+            <div class="program-item">
+                <h4>Master Gestion des Ressources Humaines</h4>
+                <p>Management stratégique des ressources humaines</p>
+            </div>
+            <div class="program-item">
+                <h4>Master Finances Publiques</h4>
+                <p>Gestion budgétaire et finances de l'État</p>
+            </div>
+        </div>
+        
+        <div id="doctorat" class="programs-content">
+            <div class="program-item">
+                <h4>Doctorat en Sciences Économiques</h4>
+                <p>Recherche avancée en économie et politiques de développement</p>
+            </div>
+            <div class="program-item">
+                <h4>Doctorat en Gestion</h4>
+                <p>Sciences de gestion et management organisationnel</p>
+            </div>
+            <div class="program-item">
+                <h4>Doctorat en Histoire</h4>
+                <p>Archéologie et patrimoine culturel africain</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Admissions Section -->
+    <section class="admissions" id="admissions">
+        <div class="section-header fade-in">
+            <h2>Processus d'Admission</h2>
+            <p>Rejoignez l'excellence à l'USSGB. Processus clair et simplifié pour tous les bacheliers.</p>
+        </div>
+        
+        <div class="admissions-grid">
+            <div class="admission-step fade-in">
+                <div class="step-number">1</div>
+                <h3>Candidature en ligne</h3>
+                <p>Créez votre compte et remplissez le formulaire avec vos informations personnelles et académiques.</p>
+                <div class="admission-dates">Session 1 : 1er Fév - 31 Mars</div>
+            </div>
+            
+            <div class="admission-step fade-in">
+                <div class="step-number">2</div>
+                <h3>Dépôt des documents</h3>
+                <p>Baccalauréat, relevés de notes, pièce d'identité, lettre de motivation et photo d'identité.</p>
+                <div class="admission-dates">Session 2 : 1er Août - 30 Sept</div>
+            </div>
+            
+            <div class="admission-step fade-in">
+                <div class="step-number">3</div>
+                <h3>Examen d'entrée</h3>
+                <p>Épreuves écrites et orales pour certains programmes compétitifs en gestion et économie.</p>
+                <div class="admission-dates">Concours : Octobre</div>
+            </div>
+            
+            <div class="admission-step fade-in">
+                <div class="step-number">4</div>
+                <h3>Inscription définitive</h3>
+                <p>Confirmation de l'admission et paiement des frais d'inscription pour finaliser votre dossier.</p>
+                <div class="admission-dates">Rentrée : 15 Octobre</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="news">
+        <div class="section-header fade-in">
+            <h2>Actualités & Événements</h2>
+            <p>Découvrez les dernières nouvelles de la communauté USSGB</p>
+        </div>
+        
+        <div class="news-grid">
+            <div class="news-card fade-in">
+                <div class="news-image">
+                    <img src="https://images.unsplash.com/photo-1544531585-9847b68c8c86?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Conférence">
+                    <div class="news-date">15 Fév 2026</div>
+                </div>
+                <div class="news-content">
+                    <h3>Partenariat avec l'Université du Québec</h3>
+                    <p>Signature d'un accord de coopération avec l'ESG-UQAM pour la continuité pédagogique et les échanges académiques.</p>
+                </div>
+            </div>
+            
+            <div class="news-card fade-in">
+                <div class="news-image">
+                    <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Remise de diplômes">
+                    <div class="news-date">10 Jan 2026</div>
+                </div>
+                <div class="news-content">
+                    <h3>Cérémonie de remise des diplômes</h3>
+                    <p>La promotion Sékéné Mody Sissoko de la FHG a reçu ses parchemins en présence du Recteur Pr Samba Diallo.</p>
+                </div>
+            </div>
+            
+            <div class="news-card fade-in">
+                <div class="news-image">
+                    <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Recherche">
+                    <div class="news-date">05 Jan 2026</div>
+                </div>
+                <div class="news-content">
+                    <h3>Nouveau Master en Gestion des Industries Extractives</h3>
+                    <p>Lancement d'une nouvelle formation répondant aux besoins du secteur minier malien.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="section-header fade-in">
+            <h2>Contactez-nous</h2>
+            <p>Nous sommes à votre disposition pour toute information complémentaire</p>
+        </div>
+        
+        <div class="contact-container">
+            <div class="contact-info fade-in">
+                <h3>Informations de contact</h3>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <strong>Adresse</strong>
+                            Colline du Savoir, Bamako, Mali<br>
+                            BP : 2024 Bamako
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <strong>Téléphone</strong>
+                            +223 20 XX XX XX<br>
+                            +223 76 XX XX XX
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <strong>Email</strong>
+                            info@ussgb.ml<br>
+                            rectorat@ussgb.ml
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <strong>Horaires</strong>
+                            Lundi - Vendredi : 8h00 - 17h00<br>
+                            Samedi : 8h00 - 12h00
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="contact-form fade-in">
+                <form onsubmit="event.preventDefault(); alert('Message envoyé avec succès !');">
+                    <div class="form-group">
+                        <label>Nom complet</label>
+                        <input type="text" placeholder="Votre nom" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" placeholder="votre@email.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Sujet</label>
+                        <select required>
+                            <option value="">Choisir un sujet</option>
+                            <option value="admission">Admission</option>
+                            <option value="formation">Formation</option>
+                            <option value="recherche">Recherche</option>
+                            <option value="autre">Autre</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea placeholder="Votre message..." required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="width: 100%; border: none; cursor: pointer;">
+                        <i class="fas fa-paper-plane"></i> Envoyer le message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>À propos de l'USSGB</h4>
+                <p>L'Université des Sciences Sociales et de Gestion de Bamako est une institution publique d'excellence dédiée à la formation des cadres en sciences sociales et gestion.</p>
+                <p>Membre de l'Agence Universitaire de la Francophonie.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Liens rapides</h4>
+                <ul>
+                    <li><a href="#accueil">Accueil</a></li>
+                    <li><a href="#facultes">Facultés</a></li>
+                    <li><a href="#admissions">Admissions</a></li>
+                    <li><a href="#">Bibliothèque</a></li>
+                    <li><a href="#">Espace étudiant</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Facultés</h4>
+                <ul>
+                    <li><a href="#">FSEG - Sciences Économiques</a></li>
+                    <li><a href="#">FHG - Histoire et Géographie</a></li>
+                    <li><a href="#">IUG - Institut de Gestion</a></li>
+                    <li><a href="#">IUDT - Développement Territorial</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Newsletter</h4>
+                <p>Inscrivez-vous pour recevoir nos actualités</p>
+                <form style="margin-top: 1rem;">
+                    <input type="email" placeholder="Votre email" style="padding: 0.8rem; border-radius: 5px; border: none; width: 100%; margin-bottom: 0.5rem;">
+                    <button class="btn btn-primary" style="width: 100%; border: none; cursor: pointer;">S'inscrire</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2026 Université des Sciences Sociales et de Gestion de Bamako. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Loader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 1000);
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Tab functionality
+        function showTab(tabName) {
+            // Hide all contents
+            const contents = document.querySelectorAll('.programs-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Show selected content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
