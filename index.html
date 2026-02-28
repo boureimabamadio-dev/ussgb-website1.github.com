@@ -1281,7 +1281,8 @@
             </div>
             
             <div class="contact-form fade-in">
-                <form onsubmit="event.preventDefault(); alert('Message envoyé avec succès !');">
+               // <form onsubmit="event.preventDefault(); alert('Message envoyé avec succès !');">
+                     <form action="https://formspree.io/f/VOTRE_ID" method="POST">
                     <div class="form-group">
                         <label>Nom complet</label>
                         <input type="text" placeholder="Votre nom" required>
@@ -1427,4 +1428,5 @@
         });
     </script>
 </body>
+
 </html>
