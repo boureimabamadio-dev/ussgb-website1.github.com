@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FSEG - Faculté des Sciences Économiques et de Gestion | USSGB</title>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --fseg-primary: #1e3a2e;
+            --fseg-secondary: #c9a227;
+            --fseg-accent: #2d5a4a;
+            --light: #f8f6f1;
+            --text: #2c3e50;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Crimson Text', serif;
+        }
+
+        /* Navigation */
+        .faculty-nav {
+            background: var(--fseg-primary);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-link {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--fseg-secondary);
+        }
+
+        .faculty-logo {
+            color: white;
+            font-family: 'Crimson Text', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        /* Hero Section */
+        .hero-fseg {
+            margin-top: 60px;
+            background: linear-gradient(135deg, var(--fseg-primary) 0%, var(--fseg-accent) 100%);
+            color: white;
+            padding: 6rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-fseg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23c9a227' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--fseg-secondary);
+            color: var(--fseg-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-fseg h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-fseg p {
+            font-size: 1.3rem;
+            max-width: 600px;
+            opacity: 0.95;
+            margin-bottom: 2rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--fseg-secondary);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--fseg-primary);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--fseg-secondary);
+        }
+
+        /* About Section */
+        .about-section {
+            background: white;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .highlight-box {
+            background: var(--light);
+            border-left: 4px solid var(--fseg-secondary);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .about-image {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        /* Programs Section */
+        .programs-section {
+            background: var(--light);
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .program-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            border-top: 4px solid var(--fseg-secondary);
+        }
+
+        .program-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .program-level {
+            display: inline-block;
+            background: var(--fseg-primary);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .program-card h3 {
+            color: var(--fseg-primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .program-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .program-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .program-list li:last-child {
+            border-bottom: none;
+        }
+
+        .program-list i {
+            color: var(--fseg-secondary);
+        }
+
+        /* Research Section */
+        .research-section {
+            background: white;
+        }
+
+        .research-areas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .research-card {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .research-card:hover {
+            background: var(--fseg-primary);
+            color: white;
+        }
+
+        .research-icon {
+            font-size: 2.5rem;
+            color: var(--fseg-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .research-card:hover .research-icon {
+            color: white;
+        }
+
+        /* Team Section */
+        .team-section {
+            background: var(--light);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .team-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .team-photo {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, var(--fseg-primary), var(--fseg-accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+        }
+
+        .team-info {
+            padding: 1.5rem;
+        }
+
+        .team-info h4 {
+            color: var(--fseg-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .team-role {
+            color: var(--fseg-secondary);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: var(--fseg-primary);
+            color: white;
+        }
+
+        .contact-section .section-title {
+            color: white;
+        }
+
+        .contact-section .section-title::after {
+            background: var(--fseg-secondary);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+
+        .contact-info h3 {
+            margin-bottom: 1.5rem;
+            color: var(--fseg-secondary);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item i {
+            color: var(--fseg-secondary);
+            font-size: 1.2rem;
+            margin-top: 0.3rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .contact-form button {
+            background: var(--fseg-secondary);
+            color: var(--fseg-primary);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .contact-form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--fseg-primary);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero-fseg h1 {
+                font-size: 2.5rem;
+            }
+            
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-stats {
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="faculty-nav">
+        <div class="nav-container">
+            <a href="../index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                Retour à l'accueil USSGB
+            </a>
+            <div class="faculty-logo">FSEG</div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-fseg">
+        <div class="hero-content">
+            <span class="hero-badge">Depuis 2011</span>
+            <h1>Faculté des Sciences Économiques et de Gestion</h1>
+            <p>Former les économistes et gestionnaires de demain, capables d'analyser les enjeux économiques africains et de proposer des solutions innovantes pour le développement.</p>
+            
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">1,200+</span>
+                    <span class="stat-label">Étudiants</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">45</span>
+                    <span class="stat-label">Enseignants-chercheurs</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">6</span>
+                    <span class="stat-label">Parcours Master</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">3</span>
+                    <span class="stat-label">Laboratoires de recherche</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <h2 class="section-title">Présentation</h2>
+        
+        <div class="about-grid">
+            <div class="about-text">
+                <p>La Faculté des Sciences Économiques et de Gestion (FSEG) de l'USSGB est un pôle d'excellence dans la formation des cadres en économie et gestion au Mali. Nos programmes allient rigueur académique et ancrage dans les réalités économiques africaines.</p>
+                
+                <p>Nos diplômés occupent des postes clés dans les ministères, les banques, les entreprises multinationales et les organisations internationales à travers l'Afrique de l'Ouest.</p>
+                
+                <div class="highlight-box">
+                    <strong>Notre mission :</strong> Développer les compétences analytiques et managériales nécessaires pour comprendre et transformer les économies africaines, avec une attention particulière aux enjeux du développement durable et de l'inclusion financière.
+                </div>
+                
+                <p>La FSEG entretient des partenariats actifs avec l'Université du Québec à Montréal (UQAM), l'Université Paris 1 Panthéon-Sorbonne, et plusieurs institutions africaines de renom.</p>
+            </div>
+            
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Étudiants FSEG">
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section class="programs-section">
+        <h2 class="section-title">Nos Formations</h2>
+        
+        <div class="programs-grid">
+            <div class="program-card">
+                <span class="program-level">Licence</span>
+                <h3>Licence en Économie</h3>
+                <p>Formation fondamentale en analyse économique, statistique et économétrie.</p>
+                <ul class="program-list">
+                    <li><i class="fas fa-check"></i> Macroéconomie avancée</li>
+                    <li><i class="fas fa-check"></i> Microéconomie</li>
+                    <li><i class="fas fa-check"></i> Économétrie</li>
+                    <li><i class="fas fa-check"></i> Économie du développement</li>
+                </ul>
+            </div>
+            
+            <div class="program-card">
+                <span class="program-level">Licence</span>
+                <h3>Licence en Gestion</h3>
+                <p>Management, comptabilité et contrôle de gestion pour entreprises modernes.</p>
+                <ul class="program-list">
+                    <li><i class="fas fa-check"></i> Comptabilité générale et analytique</li>
+                    <li><i class="fas fa-check"></i> Marketing stratégique</li>
+                    <li><i class="fas fa-check"></i> Ressources humaines</li>
+                    <li><i class="fas fa-check"></i> Finance d'entreprise</li>
+                </ul>
+            </div>
+            
+            <div class="program-card">
+                <span class="program-level">Master</span>
+                <h3>Master Management des Organisations</h3>
+                <p>Spécialisation en audit, contrôle de gestion et sciences de gestion.</p>
+                <ul class="program-list">
+                    <li><i class="fas fa-check"></i> Audit et contrôle interne</li>
+                    <li><i class="fas fa-check"></i> Stratégie d'entreprise</li>
+                    <li><i class="fas fa-check"></i> Systèmes d'information</li>
+                    <li><i class="fas fa-check"></i> Mémoire de recherche</li>
+                </ul>
+            </div>
+            
+            <div class="program-card">
+                <span class="program-level">Master</span>
+                <h3>Master Économie Appliquée</h3>
+                <p>Analyse approfondie des politiques économiques et du développement.</p>
+                <ul class="program-list">
+                    <li><i class="fas fa-check"></i> Modélisation économétrique</li>
+                    <li><i class="fas fa-check"></i> Politiques publiques</li>
+                    <li><i class="fas fa-check"></i> Économie internationale</li>
+                    <li><i class="fas fa-check"></i> Méthodologie de recherche</li>
+                </ul>
+            </div>
+            
+            <div class="program-card">
+                <span class="program-level">Master</span>
+                <h3>Master GRH & Finance</h3>
+                <p>Gestion des ressources humaines et finances publiques.</p>
+                <ul class="program-list">
+                    <li><i class="fas fa-check"></i> Gestion prévisionnelle emplois</li>
+                    <li><i class="fas fa-check"></i> Droit du travail</li>
+                    <li><i class="fas fa-check"></i> Budgétisation publique</li>
+                    <li><i class="fas fa-check"></i> Fiscalité</li>
+                </ul>
+            </div>
+            
+            <div class="program-card">
+                <span class="program-level">Doctorat</span>
+                <h3>Doctorat en Sciences Économiques</h3>
+                <p>Recherche avancée en économie du développement et politiques publiques.</p>
+                <ul class="program-list">
+                    <li><i class="fas fa-check"></i> Théorie économique</li>
+                    <li><i class="fas fa-check"></i> Économie africaine</li>
+                    <li><i class="fas fa-check"></i> Méthodes quantitatives</li>
+                    <li><i class="fas fa-check"></i> Séminaire doctoral</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Section -->
+    <section class="research-section">
+        <h2 class="section-title">Axes de Recherche</h2>
+        
+        <div class="research-areas">
+            <div class="research-card">
+                <div class="research-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Économie du Développement</h3>
+                <p>Croissance, pauvreté et inégalités en Afrique de l'Ouest</p>
+            </div>
+            
+            <div class="research-card">
+                <div class="research-icon">
+                    <i class="fas fa-coins"></i>
+                </div>
+                <h3>Finance et Inclusion</h3>
+                <p>Microfinance, mobile banking et inclusion financière</p>
+            </div>
+            
+            <div class="research-card">
+                <div class="research-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <h3>Économie Verte</h3>
+                <p>Développement durable et économie circulaire</p>
+            </div>
+            
+            <div class="research-card">
+                <div class="research-icon">
+                    <i class="fas fa-globe-africa"></i>
+                </div>
+                <h3>Intégration Régionale</h3>
+                <p>UEMOA, CEDEAO et commerce intra-africain</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <h2 class="section-title">Direction</h2>
+        
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-photo">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="team-info">
+                    <h4>Pr. [Nom du Doyen]</h4>
+                    <div class="team-role">Doyen de la FSEG</div>
+                    <p>Spécialiste en économie du développement</p>
+                </div>
+            </div>
+            
+            <div class="team-card">
+                <div class="team-photo">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="team-info">
+                    <h4>Dr. [Nom]</h4>
+                    <div class="team-role">Vice-Doyen chargé des Études</div>
+                    <p>Sciences de gestion et management</p>
+                </div>
+            </div>
+            
+            <div class="team-card">
+                <div class="team-photo">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="team-info">
+                    <h4>Pr. [Nom]</h4>
+                    <div class="team-role">Directeur des Recherches</div>
+                    <p>Économétrie et statistiques</p>
+                </div>
+            </div>
+            
+            <div class="team-card">
+                <div class="team-photo">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="team-info">
+                    <h4>Dr. [Nom]</h4>
+                    <div class="team-role">Responsable des Stages</div>
+                    <p>Relations entreprises et insertion</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <h2 class="section-title">Contact</h2>
+        
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h3>Coordonnées de la FSEG</h3>
+                
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <strong>Adresse</strong>
+                        Colline du Savoir, Sotuba<br>
+                        BP 2024 Bamako, Mali
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <strong>Téléphone</strong>
+                        +223 20 XX XX XX<br>
+                        +223 76 XX XX XX
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <strong>Email</strong>
+                        fseg@ussgb.ml<br>
+                        doyen.fseg@ussgb.ml
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <strong>Heures de bureau</strong>
+                        Lundi - Vendredi : 8h00 - 17h00<br>
+                        Samedi : 8h00 - 12h00
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <h3>Envoyer un message</h3>
+                <form>
+                    <input type="text" placeholder="Votre nom" required>
+                    <input type="email" placeholder="Votre email" required>
+                    <input type="text" placeholder="Sujet">
+                    <textarea rows="5" placeholder="Votre message" required></textarea>
+                    <button type="submit">
+                        <i class="fas fa-paper-plane"></i> Envoyer
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 FSEG - USSGB. Tous droits réservés.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FHG - Faculté d'Histoire et de Géographie | USSGB</title>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --fhg-primary: #8b4513;
+            --fhg-secondary: #d4a574;
+            --fhg-accent: #654321;
+            --light: #faf8f5;
+            --text: #3e2723;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Crimson Text', serif;
+        }
+
+        /* Navigation */
+        .faculty-nav {
+            background: var(--fhg-primary);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-link {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--fhg-secondary);
+        }
+
+        .faculty-logo {
+            color: white;
+            font-family: 'Crimson Text', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        /* Hero Section */
+        .hero-fhg {
+            margin-top: 60px;
+            background: linear-gradient(135deg, var(--fhg-primary) 0%, var(--fhg-accent) 100%);
+            color: white;
+            padding: 6rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-fhg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4a574' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--fhg-secondary);
+            color: var(--fhg-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-fhg h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-fhg p {
+            font-size: 1.3rem;
+            max-width: 600px;
+            opacity: 0.95;
+            margin-bottom: 2rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--fhg-secondary);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--fhg-primary);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--fhg-secondary);
+        }
+
+        /* Heritage Section */
+        .heritage-section {
+            background: white;
+        }
+
+        .heritage-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .heritage-text p {
+            margin-bottom: 1.5rem;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .heritage-quote {
+            background: var(--light);
+            border-left: 4px solid var(--fhg-secondary);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 10px 10px 0;
+            font-style: italic;
+            color: var(--fhg-primary);
+        }
+
+        .heritage-image {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .heritage-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        /* Programs Section */
+        .programs-section {
+            background: var(--light);
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .program-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            border-top: 4px solid var(--fhg-secondary);
+        }
+
+        .program-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .program-level {
+            display: inline-block;
+            background: var(--fhg-primary);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .program-card h3 {
+            color: var(--fhg-primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .program-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .program-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .program-list li:last-child {
+            border-bottom: none;
+        }
+
+        .program-list i {
+            color: var(--fhg-secondary);
+        }
+
+        /* Research Section */
+        .research-section {
+            background: white;
+        }
+
+        .research-areas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .research-card {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .research-card:hover {
+            background: var(--fhg-primary);
+            color: white;
+        }
+
+        .research-icon {
+            font-size: 2.5rem;
+            color: var(--fhg-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .research-card:hover .research-icon {
+            color: white;
+        }
+
+        /* Patrimoine Section */
+        .patrimoine-section {
+            background: var(--light);
+        }
+
+        .patrimoine-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .patrimoine-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+
+        .patrimoine-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .patrimoine-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--fhg-primary), var(--fhg-accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .patrimoine-content {
+            padding: 1.5rem;
+        }
+
+        .patrimoine-content h3 {
+            color: var(--fhg-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Team Section */
+        .team-section {
+            background: white;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .team-card {
+            background: var(--light);
+            border-radius: 15px;
+            overflow: hidden;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .team-photo {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, var(--fhg-primary), var(--fhg-accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+        }
+
+        .team-info {
+            padding: 1.5rem;
+        }
+
+        .team-info h4 {
+            color: var(--fhg-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .team-role {
+            color: var(--fhg-secondary);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: var(--fhg-primary);
+            color: white;
+        }
+
+        .contact-section .section-title {
+            color: white;
+        }
+
+        .contact-section .section-title::after {
+            background: var(--fhg-secondary);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+
+        .contact-info h3 {
+            margin-bottom: 1.5rem;
+            color: var(--fhg-secondary);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item i {
+            color: var(--fhg-secondary);
+            font-size: 1.2rem;
+            margin-top: 0.3rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .contact-form button {
+            background: var(--fhg-secondary);
+            color: var(--fhg-primary);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .contact-form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--fhg-accent);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero-fhg h1 {
+                font-size: 2.5rem;
+            }
+            
+            .heritage-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-stats {
+                gap: 2rem;
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="faculty-nav">
+        <div class="nav-container">
+            <a href="../index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                Retour à l'accueil USSGB
+            </a>
+            <div class="faculty-logo">FHG</div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-fhg">
+        <div class="hero-content">
+            <span class="hero-badge">Fondée en 2011</span>
+            <h1>Faculté d'Histoire et de Géographie</h1>
+            <p>Préserver le passé pour éclairer l'avenir. Notre faculté explore les richesses historiques et géographiques du Mali et de l'Afrique de l'Ouest.</p>
+            
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">800+</span>
+                    <span class="stat-label">Étudiants</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">35</span>
+                    <span class="stat-label">Enseignants-chercheurs</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">4</span>
+                    <span class="stat-label">Laboratoires</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">12</span>
+                    <span class="stat-label">Sites archéologiques partenaires</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Heritage Section -->
+    <section class="heritage-section">
+        <h2 class="section-title">Notre Mission Patrimoniale</h2>
+        
+        <div class="heritage-grid">
+            <div class="heritage-text">
+                <p>La Faculté d'Histoire et de Géographie (FHG) de l'USSGB est le gardien de la mémoire collective malienne. Nous formons les archéologues, historiens, géographes et conservateurs du patrimoine de demain.</p>
+                
+                <p>Nos programmes combinent enseignement théorique de haut niveau et travaux de terrain sur les sites historiques emblématiques du Mali : Djenné, Tombouctou, les falaises de Bandiagara, et les régions du Niger intérieur.</p>
+                
+                <div class="heritage-quote">
+                    "Connaître son histoire, c'est comprendre son présent et construire son avenir. La FHG s'engage dans la préservation et la valorisation du patrimoine culturel immatériel malien."
+                </div>
+                
+                <p>Notre faculté entretient des partenariats avec l'UNESCO, l'Institut des Sciences Humaines (ISH) du Mali, et plusieurs musées européens pour la conservation et l'étude des collections archéologiques.</p>
+            </div>
+            
+            <div class="heritage-image">
+                <img src="https://images.unsplash.com/photo-1564507592333-c60657eea523?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Patrimoine malien">
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section class="programs-section">
+        <h2 class="section-title">Nos Formations</h2>
+        
+        <div class="programs-grid">
+            <div class="program-card">
+                <span class="program-level">Licence</span>
+                <h3>Licence Histoire</h3>
+                <p>Histoire du Mali, de l'Afrique et du monde, méthodologie de la recherche historique.</p>
+                <ul class="program-list">
+                    <li><i class="fas fa-check"></i> Histoire ancienne du Mali</li>
+                    <li><i class="fas fa-check"></i> Période coloniale et post-coloniale</li>
+                    <li><i class="fas fa-check"></i> Histoire de l'Islam en Afrique</li>
+                    <li><i class="fas fa-check"></i> Archéologie et épigraphie</li>
+                </ul>
+            </div>
+            
+            <div class="program-card">
+                <span class="program-level">Licence</span>
+                <h3>Licence Géographie</h3>
+                <p>Géographie physique et humaine, aménagement du territoire, SIG.</p>
+                <ul class="program-list">
+                    <li><i class="fas fa-check"></i> Géomorphologie et climatologie</li>
+                    <li><i class="fas fa-check"></i> Géographie rurale et urbaine</li>
+                    <li><i class="fas fa-check"></i> Systèmes d'Information Géographique</li>
+                    <li><i class="fas fa-check"></i> Télédétection</li>
+                </ul>
+            </div>
+            
+            <div class="program-card">
+                <span class="program-level">Master</span>
+                <h3>Master Archéologie et Patrimoine</h3>
+                <p>Conservation, restauration et valorisation des sites et objets archéologiques.</p>
+                <ul class="program-list">
+                    <li><i class="fas fa-check"></i> Méthodes de fouille archéologique</li>
+                    <li><i class="fas fa-check"></i> Conservation préventive</li>
+                    <li><i class="fas fa-check"></i> Droit du patrimoine culturel</li>
+                    <li><i class="fas fa-check"></i> Muséologie</li>
+                </ul>
+            </div>
+            
+            <div class="program-card">
+                <span class="program-level">Master</span>
+                <h3>Master Géographie et Aménagement</h3>
+                <p>Gestion durable des territoires, urbanisme et développement local.</p>
+                <ul class="program-list">
+                    <li><i class="fas fa-check"></i> Planification urbaine</li>
+                    <li><i class="fas fa-check"></i> Gestion des ressources naturelles</li>
+                    <li><i class="fas fa-check"></i> Géographie des risques</li>
+                    <li><i class="fas fa-check"></i> Développement territorial</li>
+                </ul>
+            </div>
+            
+            <div class="program-card">
+                <span class="program-level">Master</span>
+                <h3>Master Histoire Africaine</h3>
+                <p>Approche critique des sources et histoire connectée de l'Afrique.</p>
+                <ul class="program-list">
+                    <li><i class="fas fa-check"></i> Historiographie africaine</li>
+                    <li><i class="fas fa-check"></i> Sources orales et écrites</li>
+                    <li><i class="fas fa-check"></i> Histoire des migrations</li>
+                    <li><i class="fas fa-check"></i> Mémoire et commémoration</li>
+                </ul>
+            </div>
+            
+            <div class="program-card">
+                <span class="program-level">Doctorat</span>
+                <h3>Doctorat en Histoire et Civilisations</h3>
+                <p>Recherche avancée sur les civilisations africaines et leurs interactions.</p>
+                <ul class="program-list">
+                    <li><i class="fas fa-check"></i> Théorie historique</li>
+                    <li><i class="fas fa-check"></i> Civilisations sahéliennes</li>
+                    <li><i class="fas fa-check"></i> Anthropologie historique</li>
+                    <li><i class="fas fa-check"></i> Séminaire doctoral</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Section -->
+    <section class="research-section">
+        <h2 class="section-title">Axes de Recherche</h2>
+        
+        <div class="research-areas">
+            <div class="research-card">
+                <div class="research-icon">
+                    <i class="fas fa-landmark"></i>
+                </div>
+                <h3>Archéologie Sahélienne</h3>
+                <p>Fouilles et études des civilisations du Niger intérieur</p>
+            </div>
+            
+            <div class="research-card">
+                <div class="research-icon">
+                    <i class="fas fa-scroll"></i>
+                </div>
+                <h3>Manuscrits Anciens</h3>
+                <p>Conservation et étude des manuscrits de Tombouctou et Djenné</p>
+            </div>
+            
+            <div class="research-card">
+                <div class="research-icon">
+                    <i class="fas fa-mountain"></i>
+                </div>
+                <h3>Géomorphologie</h3>
+                <p>Évolution des paysages et ressources en eau</p>
+            </div>
+            
+            <div class="research-card">
+                <div class="research-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Géographie Sociale</h3>
+                <p>Migrations, urbanisation et dynamiques territoriales</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Patrimoine Section -->
+    <section class="patrimoine-section">
+        <h2 class="section-title">Nos Sites d'Étude</h2>
+        
+        <div class="patrimoine-grid">
+            <div class="patrimoine-card">
+                <div class="patrimoine-image">
+                    <i class="fas fa-mosque"></i>
+                </div>
+                <div class="patrimoine-content">
+                    <h3>Djenné</h3>
+                    <p>Étude de la Grande Mosquée et du patrimoine architectural en terre. Partenariat avec la Mission Culturelle de Djenné.</p>
+                </div>
+            </div>
+            
+            <div class="patrimoine-card">
+                <div class="patrimoine-image">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="patrimoine-content">
+                    <h3>Tombouctou</h3>
+                    <p>Conservation des manuscrits anciens et étude des centres de savoir islamique. Collaboration avec l'Ahmed Baba Institute.</p>
+                </div>
+            </div>
+            
+            <div class="patrimoine-card">
+                <div class="patrimoine-image">
+                    <i class="fas fa-hiking"></i>
+                </div>
+                <div class="patrimoine-content">
+                    <h3>Pays Dogon</h3>
+                    <p>Anthropologie et géographie culturelle des falaises de Bandiagara. Inventaire du patrimoine immatériel UNESCO.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <h2 class="section-title">Direction</h2>
+        
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-photo">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="team-info">
+                    <h4>Pr. [Nom du Doyen]</h4>
+                    <div class="team-role">Doyen de la FHG</div>
+                    <p>Archéologue, spécialiste des civilisations sahéliennes</p>
+                </div>
+            </div>
+            
+            <div class="team-card">
+                <div class="team-photo">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="team-info">
+                    <h4>Dr. [Nom]</h4>
+                    <div class="team-role">Vice-Doyen chargé de la Recherche</div>
+                    <p>Histoire des sciences islamiques</p>
+                </div>
+            </div>
+            
+            <div class="team-card">
+                <div class="team-photo">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="team-info">
+                    <h4>Pr. [Nom]</h4>
+                    <div class="team-role">Directeur du Laboratoire Patrimoine</div>
+                    <p>Conservation-restauration</p>
+                </div>
+            </div>
+            
+            <div class="team-card">
+                <div class="team-photo">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="team-info">
+                    <h4>Dr. [Nom]</h4>
+                    <div class="team-role">Responsable des Relations Internationales</div>
+                    <p>Géographie et coopération universitaire</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <h2 class="section-title">Contact</h2>
+        
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h3>Coordonnées de la FHG</h3>
+                
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <strong>Adresse</strong>
+                        Colline du Savoir, Sotuba<br>
+                        BP 2024 Bamako, Mali
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <strong>Téléphone</strong>
+                        +223 20 XX XX XX<br>
+                        +223 76 XX XX XX
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <strong>Email</strong>
+                        fhg@ussgb.ml<br>
+                        doyen.fhg@ussgb.ml
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <strong>Heures de bureau</strong>
+                        Lundi - Vendredi : 8h00 - 17h00<br>
+                        Samedi : 8h00 - 12h00
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <h3>Envoyer un message</h3>
+                <form>
+                    <input type="text" placeholder="Votre nom" required>
+                    <input type="email" placeholder="Votre email" required>
+                    <input type="text" placeholder="Sujet">
+                    <textarea rows="5" placeholder="Votre message" required></textarea>
+                    <button type="submit">
+                        <i class="fas fa-paper-plane"></i> Envoyer
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 FHG - USSGB. Tous droits réservés.</p>
+    </footer>
+</body>
+</html>
